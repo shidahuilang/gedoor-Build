@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2  
-    - name: check latest tag
+    - name: 检查最新标签
       shell: bash
       env:
         SECRETS_MINIFY: ${{ secrets.MINIFY }}
         SECRETS_RENAME: ${{ secrets.RENAME }}
       run: source $GITHUB_WORKSPACE/action_schedule.sh
     
-    - name: check if release
+    - name: 检查是否发布新版
       id: check_release
       shell: bash
       run: |
@@ -30,18 +30,18 @@ jobs:
           echo "if_release=true" >>$GITHUB_OUTPUT
         fi
         
-    - name: setup JDK 17
+    - name: 设置 JDK 17
       if: steps.check_release.outputs.if_release == 'true'
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: 17
         
-    - name: setup Gradle
+    - name: 设置 Gradle
       if: steps.check_release.outputs.if_release == 'true'
       uses: gradle/gradle-build-action@v2.4.2
       
-    - name: build apk
+    - name: 编译 APK
       id: build_apk
       if: steps.check_release.outputs.if_release == 'true'
       shell: bash
@@ -50,7 +50,7 @@ jobs:
         source $GITHUB_WORKSPACE/action_app_build.sh
         app_build
      
-    - name: release apk
+    - name: 上传 APK
       if: steps.check_release.outputs.if_release == 'true'
       id: release_apk
       shell: bash

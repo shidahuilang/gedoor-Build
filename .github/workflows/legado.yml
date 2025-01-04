@@ -48,7 +48,7 @@ jobs:
       run: |
         source $GITHUB_WORKSPACE/action_app_custom.sh
         source $GITHUB_WORKSPACE/action_app_build.sh
-        source $GITHUB_WORKSPACE/action_legado_myself.sh
+        #source $GITHUB_WORKSPACE/action_legado_myself.sh
         app_build
 
     - name: 上传 APK
